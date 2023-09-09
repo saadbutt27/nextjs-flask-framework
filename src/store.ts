@@ -18,8 +18,8 @@ type TodoStore = {
   deleteTodo: (id: number) => void;
 };
 
-const URL = process.env.NEXT_PULIC_SITE_URL
-  ? `https://${process.env.NEXT_PULIC_SITE_URL}/api`
+const URL = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
   : "http://localhost:3000/api";
 
 export const useStore = create<TodoStore>((set) => ({
@@ -37,6 +37,7 @@ export const useStore = create<TodoStore>((set) => ({
 
   addTodo: async (todo) => {
     try {
+      console.log(URL);
       const response = await fetch(`${URL}/todos`, {
         method: "POST",
         headers: {
@@ -70,7 +71,7 @@ export const useStore = create<TodoStore>((set) => ({
       console.error("Error updating todo:", error);
     }
   },
-  
+
   deleteTodo: async (id) => {
     try {
       await fetch(`${URL}/todos/${id}`, {
